@@ -45,7 +45,13 @@ settings, or possibly on first install of the plugin. [Find the Regenerate Thumb
 
 == Changelog ==
 
+= 1.1 =
+* Moved settings page to WooCommerce settings tab
+
 = 1.0 =
 * First version
 
 == Upgrade Notice ==
+
+= 1.1 =
+* Moved settings page to a more user-friendly place

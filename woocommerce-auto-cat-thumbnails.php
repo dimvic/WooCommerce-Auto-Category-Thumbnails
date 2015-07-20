@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Auto Category Thumbnails
 Plugin URI: http://codebyshellbot.com/wordpress-plugins/woocommerce-auto-category-thumbnails/
 Description: Automatically display a relevant product image if category thumbnails are not set.
-Version: 1.0
+Version: 1.1
 Author: Shellbot
 Author URI: http://codebyshellbot.com
 License: GPLv2 or later
@@ -28,6 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class SB_WC_Auto_Category_Thumbnails {
 
+  /**
+   * Add our various hooks and filters as soon as possible.
+   *
+   * @since 1.0
+   */
     public function __construct() {
         add_action( 'plugins_loaded', array( $this, 'remove_default' ) );
         add_action( 'woocommerce_before_subcategory_title', array( $this, 'auto_category_thumbnail' ) );
@@ -37,10 +42,21 @@ class SB_WC_Auto_Category_Thumbnails {
         add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 50 );
     }
 
+  /**
+   * Remove WooCommerce default action to replace with our own.
+   *
+   * @since 1.0
+   */
     public function remove_default() {
         remove_action( 'woocommerce_before_subcategory_title', 'woocommerce_subcategory_thumbnail' );
     }
 
+    /**
+     * Replace category placeholders with product images.
+     *
+     * @param object $cat
+     * @since 1.0
+     */
     public function auto_category_thumbnail( $cat ) {
 
         //If a thumbnail is explicitly set for this category, we don't need to do anything else
@@ -87,15 +103,23 @@ class SB_WC_Auto_Category_Thumbnails {
         }
     }
 
+    /**
+     * Add plugin settings tab to WooCommerce settings page.
+     *
+     * @param array $settings_tab
+     * @return array $settings_tab
+     * @since 1.1
+     */
     function add_settings_tab( $settings_tabs ) {
         $settings_tabs['sbo_wcact'] = __( 'Auto Category Thumbnails', 'wc-auto-category-thumbnails' );
         return $settings_tabs;
     }
 
-    function settings_tab() {
-        woocommerce_admin_fields( $this->get_settings() );
-    }
-
+    /**
+     * Define fields for plugin settings tab.
+     *
+     * @since 1.1
+     */
     function get_settings() {
 
         $settings = array(
@@ -124,6 +148,20 @@ class SB_WC_Auto_Category_Thumbnails {
         return apply_filters( 'wcact_settings', $settings );
     }
 
+    /**
+     * Add fields defined in get_settings() to plugin settings tab.
+     *
+     * @since 1.1
+     */
+    function settings_tab() {
+        woocommerce_admin_fields( $this->get_settings() );
+    }
+
+    /**
+     * Save settings from plugin tab.
+     *
+     * @since 1.1
+     */
     function update_settings() {
         woocommerce_update_options( $this->get_settings() );
     }

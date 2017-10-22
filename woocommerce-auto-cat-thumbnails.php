@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Auto Category Thumbnails
 Plugin URI: http://codebyshellbot.com/wordpress-plugins/woocommerce-auto-category-thumbnails/
 Description: Automatically display a relevant product image if category thumbnails are not set.
-Version: 1.1
+Version: 1.2
 Author: Shellbot
 Author URI: http://codebyshellbot.com
 License: GPLv2 or later
@@ -67,22 +67,22 @@ class SB_WC_Auto_Category_Thumbnails {
 
         //Otherwise build our query
         $query_args = array(
-            'meta_query' => array(
-                array(
-                    'key' => '_visibility',
-                    'value' => array( 'catalog', 'visible' ),
-                    'compare' => 'IN'
-                )
-            ),
             'post_status' => 'publish',
             'post_type' => 'product',
             'posts_per_page' => 1,
             'tax_query' => array(
+                'relation' => 'AND',
                 array(
                     'field' => 'id',
                     'taxonomy' => 'product_cat',
                     'terms' => $cat->term_id
-                )
+                ),
+                array(
+                    'field' => 'slug',
+                    'taxonomy' => 'product_visibility',
+                    'terms' => 'exclude-from-catalog',
+                    'operator' => 'NOT IN',
+                ),
             )
         );
 

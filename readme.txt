@@ -2,7 +2,7 @@
 Contributors: Shellbot
 Tags: woocommerce, ecommerce, e-commerce, wordpress ecommerce, shopping, categories
 Requires at least: 4.0
-Tested up to: 4.8.2
+Tested up to: 4.9.6
 Donate link: http://patreon.com/shellbot
 Stable tag: trunk
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Replace the default WooCommerce category image placeholder with a relevant proje
 
 == Description ==
 
-** 22/10/17 - Updated for the latest version of WooCommerce **
+** 07/06/18 - Updated for the latest version of WooCommerce **
 
 By default, WooCommerce displays a neutral and uninteresting category image placeholder in those cases where a category has
 no explicitly set thumbnail. This plugin simply replaces the placeholder image with a product image from that category.
@@ -46,6 +46,9 @@ in your WP admin panel. You will need to regenerate your image sizes after chang
 settings, or possibly on first install of the plugin. [Find the Regenerate Thumbnails plugin here](http://wordpress.org/plugins/regenerate-thumbnails/ "Regenerate Thumbnails").
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed issue with category image size in newer versions of WooCommerce
 
 = 1.2 =
 * Fixed incompatibility with latest version of WooCommerce due to changed handling of product visibility setting

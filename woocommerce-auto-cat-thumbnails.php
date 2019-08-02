@@ -27,19 +27,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 class SB_WC_Auto_Category_Thumbnails {
-
+    static $initialized = false;
   /**
    * Add our various hooks and filters as soon as possible.
    *
    * @since 1.0
    */
     public function __construct() {
+        if ( static::$initialized === true ) {
+                return;
+        }
+
         add_action( 'plugins_loaded', array( $this, 'remove_default' ) );
         add_action( 'woocommerce_before_subcategory_title', array( $this, 'auto_category_thumbnail' ) );
         add_action( 'woocommerce_settings_tabs_sbo_wcact', array( $this, 'settings_tab' ) );
         add_action( 'woocommerce_update_options_sbo_wcact', array( $this, 'update_settings' ) );
 
         add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 50 );
+
+        static::$initialized = true;
     }
 
   /**
@@ -175,4 +181,6 @@ class SB_WC_Auto_Category_Thumbnails {
 
 }
 
-new SB_WC_Auto_Category_Thumbnails();
+global $SB_WC_Auto_Category_Thumbnails;
+
+$SB_WC_Auto_Category_Thumbnails = new SB_WC_Auto_Category_Thumbnails();
